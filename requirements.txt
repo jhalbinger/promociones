@@ -1,4 +1,7 @@
 flask
 scikit-learn
 joblib
+flask
+scikit-learn
+joblib
 
