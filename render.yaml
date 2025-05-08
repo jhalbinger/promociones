@@ -2,5 +2,5 @@ services:
   - type: web
     name: promociones
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "./build.sh"
     startCommand: "python3 app.py"
