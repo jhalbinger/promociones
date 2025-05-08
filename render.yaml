@@ -3,4 +3,4 @@ services:
     name: promociones
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn app:app"
+    startCommand: ". .venv/bin/activate && gunicorn app:app"
