@@ -1,14 +1,20 @@
 from flask import Flask, request, jsonify
 import joblib
 
-# Cargar el modelo
-modelo = joblib.load("modelo_tree.pkl")
-
 app = Flask(__name__)
+
+# Cargar modelo
+modelo = joblib.load("modelo_tree.pkl")
 
 @app.route("/promos", methods=["POST"])
 def promos():
     datos = request.get_json()
+    print("Recibido:", datos)  # Esto lo vas a ver en los logs de Render
+
+    # Verificamos que lleguen bien los datos
+    if not datos or "sexo" not in datos or "edad" not in datos:
+        return jsonify({"error": "Faltan campos"}), 400
+
     entrada = [[datos["sexo"], datos["edad"]]]
     prediccion = modelo.predict(entrada)
 
@@ -24,17 +30,4 @@ def promos():
         resultado = "No se puede determinar la preferencia"
 
     return jsonify({"resultado": resultado})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Servidor de promociones activo"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
 
