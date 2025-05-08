@@ -6,6 +6,7 @@ app = Flask(__name__)
 # Cargar modelo
 modelo = joblib.load("modelo_tree.pkl")
 
+@app.route("/", methods=["POST"])
 @app.route("/promos", methods=["POST"])
 def promos():
     datos = request.get_json()
